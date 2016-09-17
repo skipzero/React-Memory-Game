@@ -1,0 +1,32 @@
+#gameBoard {
+  border: 1px solid #666;
+  margin: 30px auto;
+  padding: 10px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 900px
+}
+
+/*  Putting the card fronts above the card back will hide the front of the card until class is removed */
+#gameBoard .mewtwo {
+  background: url(http://cdn.bulbagarden.net/upload/thumb/7/78/150Mewtwo.png/250px-150Mewtwo.png) no-repeat 100%;
+}
+
+#gameBoard .back {
+  background: url('http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest') no-repeat 100%;
+}
+
+#container #gameBoard .card {  //  our base card styles class
+  border: 1px solid #666;
+  margin: 10px;
+  width: 200px;
+  height: 250px;
+  box-shadow: 2px 2px 2px 1px #666;
+}
+
+#gameBoard .card:nth-child(even) {
+  background: ;
+}
