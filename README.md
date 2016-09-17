@@ -2,6 +2,10 @@ Concentration, also known as Match Match, Memory, Pelmanism, Shinkei-suijaku, Pe
 
 [Concentration](https://en.wikipedia.org/wiki/Concentration_(game))
 
+## Demo
+
+You can see it in action at [React Memory Game](http://codepen.io/zerosquadron/full/mAPOoJ/)
+
 ## HOW TO RUN
 Clone or download the repo, on the commandline navigate into the repo and type:
 

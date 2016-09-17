@@ -11,12 +11,48 @@
 }
 
 /*  Putting the card fronts above the card back will hide the front of the card until class is removed */
+#gameBoard .abra {
+  background: url(http://cdn.bulbagarden.net/upload/6/62/063Abra.png) no-repeat;
+  background-size: contain;
+}
+
+#gameBoard .bulbasaur {
+  background: url(http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png) no-repeat;
+  background-size: contain;
+}
+
+#gameBoard .charmander {
+  background: url(http://cdn.bulbagarden.net/upload/thumb/7/73/004Charmander.png/600px-004Charmander.png) no-repeat;
+  background-size: contain;
+}
+
+#gameBoard .gyarados {
+  background: url(http://cdn.bulbagarden.net/upload/4/41/130Gyarados.png) no-repeat;
+  background-size: contain;
+}
+
+#gameBoard .jigglypuff {
+  background: url(http://cdn.bulbagarden.net/upload/thumb/3/3e/039Jigglypuff.png/250px-039Jigglypuff.png) no-repeat;
+  background-size: contain;
+}
+
 #gameBoard .mewtwo {
-  background: url(http://cdn.bulbagarden.net/upload/thumb/7/78/150Mewtwo.png/250px-150Mewtwo.png) no-repeat 100%;
+  background: url(http://cdn.bulbagarden.net/upload/thumb/7/78/150Mewtwo.png/250px-150Mewtwo.png) no-repeat;
+  background-size: contain;
+}
+
+#gameBoard .pikachu {
+  background: url(http://cdn.bulbagarden.net/upload/0/0d/025Pikachu.png) no-repeat;
+  background-size: contain;
+}
+
+#gameBoard .squirtle {
+  background: url(http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png) no-repeat;
+  background-size: contain;
 }
 
 #gameBoard .back {
-  background: url('http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest') no-repeat 100%;
+  /*background: url('http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest') no-repeat;*/
 }
 
 #container #gameBoard .card {  //  our base card styles class

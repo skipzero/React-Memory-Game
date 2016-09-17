@@ -11,13 +11,13 @@ const ABRA = 'http://cdn.bulbagarden.net/upload/6/62/063Abra.png'
 const GYARADOS = 'http://cdn.bulbagarden.net/upload/4/41/130Gyarados.png'
 const MEWTWO = 'http://cdn.bulbagarden.net/upload/thumb/7/78/150Mewtwo.png/250px-150Mewtwo.png'
 
-const pokeArray = [BULBASAUR, CHARMANDER, SQUIRTLE, PIKACHU, JIGGLYPUFF, ABRA, GYARADOS, MEWTWO];
+const pokeArray = ('BULBASAUR CHARMANDER SQUIRTLE PIKACHU JIGGLYPUFF ABRA GYARADOS MEWTWO').toLowerCase().split(' ');
 
 class Concentration extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			deck: ['', 'mewtwo', '', '', '', '', '', 'mewtwo'],
+			deck: [],
 			matches: 0,
 			moves: 0,
 		};
@@ -33,19 +33,53 @@ class Concentration extends React.Component {
 		);
   }
 
+	//  Randomly pick 4 of the 8 cards to make our deck...
+  pickCards() {
+    const deck = this.state.deck;
+		let i = 0;
+
+    while (i < 4) {
+			let j = 0;
+			const randomNumber = this.randomNumber();
+      const newCard = pokeArray.splice(randomNumber, 1)[0];
+
+		  while (j < 2) {
+        deck.push(newCard);
+				j++;
+      }
+      console.log('PickCard', randomNumber, deck);
+			i++;
+    }
+		return deck;
+  }
+
+	//  Shuffle our cards after they're picked...
+  makeDeck() {
+    let deck = this.pickCards();
+    for(let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tempVal = deck[i];
+      deck[i] = deck[j];
+      deck[j] = tempVal;
+    }
+    return deck;
+  }
+
 	clickHandler() {
     console.log('PROPS', this.state);
-    this.state.moves += 1;  //  increament our moves 
+    this.state.moves += 1;  //  increament our moves
+		this.pickCards();
 	}
 
 	randomNumber() {
 		const min = 0;
-		const max = 7;
+		const max = pokeArray.length - 1;
 
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
 	gameBoard() {
+		console.log(this.makeDeck());
 		return (
 			<div id='gameBoard'> {
 					this.state.deck.map((card, i) => {
