@@ -1,3 +1,4 @@
+(() => {
 // The back of the cards
 const POKEBALL = 'http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest'
 
@@ -23,7 +24,7 @@ class Concentration extends React.Component {
 	constructor(props) {
 		super(props);
 		this.restart = this.restart.bind(this);
-		this.timer = null;
+		this.resetTime = null;
 
 		this.checkMatch = this.checkMatch.bind(this);
 
@@ -35,7 +36,7 @@ class Concentration extends React.Component {
 	cleanState() {
 		return {
 			deck: [],
-			matches: [],
+			pairs: [],
 			moves: 0,
 			selected: [],
 		};
@@ -53,7 +54,7 @@ class Concentration extends React.Component {
 								id={i}
 								isSelected={this.state.selected.includes(i)}
 								key={i}
-								didMatch={this.state.matches.includes(i)}
+								didMatch={this.state.pairs.includes(i)}
 							/>
 						);
 					}, this)
@@ -62,41 +63,64 @@ class Concentration extends React.Component {
 		)
 	}
 
-	clickHandler(cardId) {
-		if(this.restartTimer || this.state.selected.includes(cardId)) {
+	clickHandler(cid) {
+		//  early return in case cards been selected this round or the timer is 'on'
+		if(this.state.selected.includes(cid) || this.resetTime) {
 			return;
 		}
 
+		console.log('Clicker...', this.state.selected);
+
 		if(this.state.selected.length >= 1) {
-			this.restartTimer = setTimeout(this.checkMatch(), 1000);
+			this.resetTime = setTimeout(() => {
+				console.log('Inside setTimeout....')
+				this.checkMatch()
+			}, 1000);
 		}
-    console.log(cardId, 'PROPS', this);
-		this.setState({ selected: this.state.selected.concat(cardId)});
+
+		this.state.selected.push(cid)
+
+    console.log(cid, 'PROPS', this.state.selected);
+		this.setState({
+			selected: this.state.selected
+		})
 	}
 
 	checkMatch() {
-		console.log('Checking the matches...')
-		let matches = this.state.matches.slice();
-		const selected = this.state.selected.map((id) => this.state.deck[id]);
+		let click = this.state.pairs;
+		console.log('Checking the matches...');
+		let pairs = this.state.pairs;
 
-		if(pokeArray[selected[0]] === pokeArray[selected[1]]) {
-			matches = matches.concat(this.state.selected);
-						console.log('Selections', selected[0], selected[1]);
-		}
-console.log('Matcher', matches)
-		this.setState({
-			moves: this.state.moves += 1,
-			selected: [],
-			matches: matches,
+		const matchSelected = this.state.selected.map((id) => {
+		console.log('selectedPoke =========', this.state.deck[id])
+			return this.state.deck[id]
 		});
-		this.timer = null;
+		console.log('selected>>', matchSelected, pairs)
+
+
+		if(matchSelected[0] === matchSelected[1]) {
+			pairs = pairs.concat(this.state.selected);
+						console.log('Selections', matchSelected[0], matchSelected[1]);
+		}
+console.log('Matcher', pairs)
+		this.setState({
+			selected: [],
+			moves: click++,
+			pairs
+		});
+		this.resetTime = null;
+		if(this.state.pairs.length === 8) {
+			this.restart();
+		}
 	}
 
 	render() {
 		const gameboard = this.gameBoard();
   	return (
 			<div>
-				<div className='score'><span> </span></div>
+				<div className='score'>
+					<span>{this.state.pairs.length / 2}</span>
+				</div>
 				{gameboard}
 			</div>
 		);
@@ -116,7 +140,6 @@ console.log('Matcher', matches)
         deck.push(newCard);
 				j++;
       }
-      console.log('PickCard', randomNumber, deck);
 			i++;
     }
 		return deck;
@@ -172,3 +195,4 @@ class Card extends React.Component {
 }
 
 React.render(<Concentration />, document.getElementById('container'));
+})();
