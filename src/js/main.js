@@ -39,7 +39,7 @@ class Concentration extends React.Component {
 			pairs: [],
 			moves: 0,
 			selected: [],
-			endMsg: '',
+			endMsg:  '',
 		};
 	}
 
