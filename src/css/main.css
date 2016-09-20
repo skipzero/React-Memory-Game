@@ -1,4 +1,4 @@
-body, html {
+html {
   font: 10px Arial, Helvetic, sans-serif;
   margin:0;
   padding:0;
@@ -10,9 +10,17 @@ body, html {
   width: 90rem;
 }
 
+#container .endMsg {
+  flex: 0 0 100%;
+  border: 1px solid #0f0;
+  font-size: 4rem;
+  font-weight: bold;
+  height: 4rem;
+  text-align: center;
+}
+
 #gameBoard {
-  border: 1px solid #666;
-  margin: 9rem auto;
+  margin: 4rem auto 0;
   padding: 1rem;
   display: -webkit-flex;
   display: flex;
@@ -42,18 +50,6 @@ body, html {
   font-size: 5.5em;
 }
 
-/*.score span {
-  display: block;
-  position: absolute;
-  top: 18px;
-  left: 36px;
-}*/
-
-/*  for 2 digits, if needd in future  */
-/*.score span.twoDig {
-  left: 22px;
-}*/
-
 .flip {
   border: 1px solid #666;
   margin: 1rem;
@@ -64,74 +60,72 @@ body, html {
   position: relative;
   box-shadow: 2px 2px 2px 1px #666;
 }
-.flip .card.flipped {
-  -webkit-transform: rotatex(-180deg);
-}
+
 .flip .card {
   width: 100%;
   height: 100%;
   -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
+
+.flip .card.flipped {
+  -webkit-transform: rotatex(-180deg);
+  transform: rotatex(-180deg);
+}
+
 .flip .card .face {
   width: 100%;
   height: 100%;
   position: absolute;
+  background-position-y: 2em;
+  background-repeat: no-repeat;
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background-size: contain;
 }
 
 .flip .card .front {
+  -webkit-transform: rotatex(-180deg);
   position: absolute;
   z-index: 1;
 }
 
 .flip .card .back {
-  -webkit-transform: rotatex(-180deg);
   cursor: pointer;
-}
-
-.flip .card .back {
-  background: url('http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest') no-repeat;
-  background-size: contain;
+  background-image: url('http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png');
 }
 
 /*  Putting the card fronts above the card back will hide the front of the card until class is removed */
 .flip .abra {
-  background: url(http://cdn.bulbagarden.net/upload/6/62/063Abra.png) no-repeat;
-  background-size: contain;
+  background-image: url(http://cdn.bulbagarden.net/upload/6/62/063Abra.png);
 }
 
 .flip .bulbasaur {
-  background: url(http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png) no-repeat;
-  background-size: contain;
+  background-image: url(http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png);
 }
 
 .flip .charmander {
-  background: url(http://cdn.bulbagarden.net/upload/thumb/7/73/004Charmander.png/600px-004Charmander.png) no-repeat;
-  background-size: contain;
+  background-image: url(http://cdn.bulbagarden.net/upload/thumb/7/73/004Charmander.png/600px-004Charmander.png);
 }
 
 .flip .gyarados {
-  background: url(http://cdn.bulbagarden.net/upload/4/41/130Gyarados.png) no-repeat;
-  background-size: contain;
+  background-image: url(http://cdn.bulbagarden.net/upload/4/41/130Gyarados.png);
 }
 
 .flip .jigglypuff {
-  background: url(http://cdn.bulbagarden.net/upload/thumb/3/3e/039Jigglypuff.png/250px-039Jigglypuff.png) no-repeat;
-  background-size: contain;
+  background-image: url(http://cdn.bulbagarden.net/upload/thumb/3/3e/039Jigglypuff.png/250px-039Jigglypuff.png);
 }
 
 .flip .mewtwo {
-  background: url(http://cdn.bulbagarden.net/upload/thumb/7/78/150Mewtwo.png/250px-150Mewtwo.png) no-repeat;
-  background-size: contain;
+  background-image: url(http://cdn.bulbagarden.net/upload/thumb/7/78/150Mewtwo.png/250px-150Mewtwo.png);
 }
 
 .flip .pikachu {
-  background: url(http://cdn.bulbagarden.net/upload/0/0d/025Pikachu.png) no-repeat;
-  background-size: contain;
+  background-image: url(http://cdn.bulbagarden.net/upload/0/0d/025Pikachu.png);
 }
 
 .flip .squirtle {
-  background: url(http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png) no-repeat;
-  background-size: contain;
+  background-image: url(http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png);
 }

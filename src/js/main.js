@@ -35,10 +35,11 @@ class Concentration extends React.Component {
 
 	cleanState() {
 		return {
-			deck: [],
+			deck: this.shuffleDeck(),
 			pairs: [],
 			moves: 0,
 			selected: [],
+			endMsg: '',
 		};
 	}
 
@@ -69,13 +70,10 @@ class Concentration extends React.Component {
 			return;
 		}
 
-		console.log('Clicker...', this.state.selected);
-
 		if(this.state.selected.length >= 1) {
 			this.resetTime = setTimeout(() => {
-				console.log('Inside setTimeout....')
-				this.checkMatch()
-			}, 1000);
+				this.checkMatch();
+			}, 1500);
 		}
 
 		this.state.selected.push(cid)
@@ -87,30 +85,33 @@ class Concentration extends React.Component {
 	}
 
 	checkMatch() {
-		let click = this.state.pairs;
-		console.log('Checking the matches...');
+		let moves = this.state.moves;
 		let pairs = this.state.pairs;
 
 		const matchSelected = this.state.selected.map((id) => {
-		console.log('selectedPoke =========', this.state.deck[id])
-			return this.state.deck[id]
+			return this.state.deck[id];
 		});
-		console.log('selected>>', matchSelected, pairs)
-
 
 		if(matchSelected[0] === matchSelected[1]) {
 			pairs = pairs.concat(this.state.selected);
-						console.log('Selections', matchSelected[0], matchSelected[1]);
 		}
-console.log('Matcher', pairs)
+
 		this.setState({
 			selected: [],
-			moves: click++,
+			moves,
 			pairs
 		});
+
 		this.resetTime = null;
+
 		if(this.state.pairs.length === 8) {
-			this.restart();
+			this.setState({
+				endMsg: 'You got them all!! Let\'s play again!!'
+			});
+
+			const newGame = setTimeout(() => {
+				this.restart();
+			}, 5000);
 		}
 	}
 
@@ -118,6 +119,7 @@ console.log('Matcher', pairs)
 		const gameboard = this.gameBoard();
   	return (
 			<div>
+				<div className='endMsg'>{ this.state.endMsg }</div>
 				<div className='score'>
 					<span>{this.state.pairs.length / 2}</span>
 				</div>
@@ -128,13 +130,14 @@ console.log('Matcher', pairs)
 
 	//  Randomly pick 4 of the 8 cards to make our deck...
   pickCards() {
-    const deck = this.state.deck;
+    const deck = [];
+		let pokeArrayCopy = pokeArray.slice();
 		let i = 0;
 
     while (i < 4) {
 			let j = 0;
-			const randomNumber = this.randomNumber();
-      const newCard = pokeArray.splice(randomNumber, 1)[0];
+			const randomNumber = this.randomNumber(pokeArrayCopy);
+      const newCard = pokeArrayCopy.splice(randomNumber, 1)[0];
 
 		  while (j < 2) {
         deck.push(newCard);
@@ -149,23 +152,24 @@ console.log('Matcher', pairs)
   // https://en.wikipedia.org/wiki/Fisher-Yates_shuffle
   shuffleDeck() {
     let deck = this.pickCards();
+
     for(let i = deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       const tempVal = deck[i];
       deck[i] = deck[j];
       deck[j] = tempVal;
     }
-		console.log('Shuffled...', deck)
     return deck;
   }
 
-	randomNumber() {
+	randomNumber(arr) {
+		const ourArray = arr;
 		const min = 0;
-		const max = pokeArray.length - 1;  //  using length of our array so we never get a number out of range
+		const max = ourArray.length - 1;  //  using length of our array so we never get a number out of range
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 
-	//  reset our game when all cards are matched...
+	//  reset our game when all cards are matched... could be a reset button too...
 	restart() {
 		this.setState(this.cleanState());
 	}
@@ -186,8 +190,8 @@ class Card extends React.Component {
 		return (
 			<div className='flip' id={this.props.id} onClick={this.props.handleClick.bind(this)}>
 				<div className={turned} style={style}>
+					<div className={`face back`}> </div>
 					<div className={`face front ${this.props.className}`}> </div>
-					<div className='face back'> </div>
 				</div>
 			</div>
 		);
