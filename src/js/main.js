@@ -1,24 +1,24 @@
 (() => {
 // The back of the cards
-const POKEBALL = 'http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest'
+// const POKEBALL = 'http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest'
 
 // The front of the cards
-const BULBASAUR = 'http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png'
-const CHARMANDER = 'http://cdn.bulbagarden.net/upload/thumb/7/73/004Charmander.png/600px-004Charmander.png'
-const SQUIRTLE = 'http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png'
-const PIKACHU = 'http://cdn.bulbagarden.net/upload/0/0d/025Pikachu.png'
-const JIGGLYPUFF = 'http://cdn.bulbagarden.net/upload/thumb/3/3e/039Jigglypuff.png/250px-039Jigglypuff.png'
-const ABRA = 'http://cdn.bulbagarden.net/upload/6/62/063Abra.png'
-const GYARADOS = 'http://cdn.bulbagarden.net/upload/4/41/130Gyarados.png'
-const MEWTWO = 'http://cdn.bulbagarden.net/upload/thumb/7/78/150Mewtwo.png/250px-150Mewtwo.png'
+// const BULBASAUR = 'http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png'
+// const CHARMANDER = 'http://cdn.bulbagarden.net/upload/thumb/7/73/004Charmander.png/600px-004Charmander.png'
+// const SQUIRTLE = 'http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png'
+// const PIKACHU = 'http://cdn.bulbagarden.net/upload/0/0d/025Pikachu.png'
+// const JIGGLYPUFF = 'http://cdn.bulbagarden.net/upload/thumb/3/3e/039Jigglypuff.png/250px-039Jigglypuff.png'
+// const ABRA = 'http://cdn.bulbagarden.net/upload/6/62/063Abra.png'
+// const GYARADOS = 'http://cdn.bulbagarden.net/upload/4/41/130Gyarados.png'
+// const MEWTWO = 'http://cdn.bulbagarden.net/upload/thumb/7/78/150Mewtwo.png/250px-150Mewtwo.png'
 
 //  our monsterous array!
-let pokeArray = 'BULBASAUR, CHARMANDER, SQUIRTLE, PIKACHU, JIGGLYPUFF, ABRA, GYARADOS, MEWTWO';
-const arrCopy = pokeArray.slice();
+  let pokeArray = 'BULBASAUR, CHARMANDER, SQUIRTLE, PIKACHU, JIGGLYPUFF, ABRA, GYARADOS, MEWTWO'
+  const arrCopy = pokeArray.slice()
 
-pokeArray = pokeArray.toLowerCase().split(', ');
+  pokeArray = pokeArray.toLowerCase().split(', ')
 
-console.log('COPY', arrCopy);
+  console.log('COPY', arrCopy)
 
 class Concentration extends React.Component {
 	constructor(props) {
@@ -43,9 +43,9 @@ class Concentration extends React.Component {
 		};
 	}
 
-	gameBoard() {
-		return (
-			<div id='gameBoard'> {
+  gameBoard () {
+    return (
+      <div id='gameBoard'> {
 					this.state.deck.map((card, i) => {
 						return (
 							<Card
@@ -57,7 +57,7 @@ class Concentration extends React.Component {
 								key={i}
 								didMatch={this.state.pairs.includes(i)}
 							/>
-						);
+						)
 					}, this)
 				}
 			</div>
@@ -115,8 +115,8 @@ class Concentration extends React.Component {
 		}
 	}
 
-	render() {
-		const gameboard = this.gameBoard();
+  render () {
+    const gameboard = this.gameBoard()
   	return (
 			<div>
 				<div className='endMsg'>{ this.state.endMsg }</div>
