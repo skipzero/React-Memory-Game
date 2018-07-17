@@ -12,7 +12,7 @@ run: build
 	./node_modules/.bin/http-server
 
 build: node_modules/
-	mkdir -p dist/js && babel src/js/main.js -o dist/js/main.js -sw &
+	mkdir -p dist/js && ./node_modules/.bin/babel src/js/main.js -o dist/js/main.js -sw &
 
 node_modules/: package.json
 	npm install
