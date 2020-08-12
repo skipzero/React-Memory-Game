@@ -1,12 +1,33 @@
-Concentration, also known as Match Match, Memory, Pelmanism, Shinkei-suijaku, Pexeso or simply Pairs, is a card game in which all of the cards are laid face down on a surface and two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards. Concentration can be played with any number of players or as solitaire. It is a particularly good game for young children, though adults may find it challenging and stimulating as well. The scheme is often used in quiz shows and can be employed as an educational game.
+Check out the [hooks branch](https://github.com/skipzero/React-Memory-Game/tree/hooks) for the newest version
 
-[Concentration](https://en.wikipedia.org/wiki/Concentration_(game))
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Demo
+## Available Scripts
 
-You can see it in action at [React Memory Game](http://codepen.io/zerosquadron/full/mAPOoJ/)
+In the project directory, you can run:
 
-## HOW TO RUN
-Clone or download the repo, on the commandline navigate into the repo and type:
+### `yarn start`
 
-    make run
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### `yarn test`
+
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimises the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
