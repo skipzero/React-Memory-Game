@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-function Memory() {
-
-  const [restart, setRestart] = useState(false);
-  const [time, restartTime] = useState(null);
-  const [deck, setDeck] = useState([]);
-
+const Memory = () => {
+  const front = 'http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest';
   const pokeObj = {
-    front: 'http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest',
     bulbasaur: 'http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png',
     charmander: 'http://cdn.bulbagarden.net/upload/thumb/7/73/004Charmander.png/600px-004Charmander.png',
     squirtle: 'http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png',
@@ -26,8 +21,11 @@ function Memory() {
       return Math.floor(Math.random() * 3 - 1);
     });
 
-    pokeDeck = pokeDeck.slice(0, 4).reduce((acc, poke) => {
-      return acc.push(poke, poke);
+    pokeDeck = pokeDeck.slice(0, 4).reduce((acc, poke, idx, arr) => {
+      // debugger;
+      console.log('++++++', acc, poke);
+      acc.push(poke, poke);
+      return acc;
     }, []);
 
     //  Shuffle our cards after they're picked using the Fisher-Yates shuffle:
@@ -38,24 +36,51 @@ function Memory() {
       pokeDeck[i] = pokeDeck[j];
       pokeDeck[j] = temp;
     }
-    setDeck(pokeDeck);
+    return pokeDeck;
+  }
+
+  const [restart, setRestart] = useState(false);
+  const [time, restartTime] = useState(null);
+  const [deck, setDeck] = useState(shuffle());
+  const [moves, setMoves] = useState(0);
+
+  useEffect(() => {
+
+  }, []);
+
+  const checkMatch = () => {
+
+  }
+
+  const clickHandler = () => {
+    return '';
   }
 
   return (
     <div id='gameBoard'>
       {deck.map((card, i) => {
+        console.log('CARD====', card)
         return (
-          <Card />
+          <Card className={card}
+            handleClick={clickHandler}
+            id={i} />
         )
       })}
     </div>
   );
 }
 
-function Card() {
+const Card = props => {
+  let [togglevisibility, setTogglevisibility] = useState(props.didMatch);
+  let [turned, setTurned] = useState('card');
+  let [classes, setClasses] = useState('');
+
+  let style = {}
+
+  console.log('PROPSSSS', props)
 
   return (
-    <div className='flip' id={this.props.id} onClick={this.props.handleClick.bind(this)}>
+    <div className='flip' id={props.id} onClick={props.handleClick}>
       <div className={turned} style={style}>
         <div className={`face back`}></div>
         <div className={`face front ${classes}`}></div>

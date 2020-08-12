@@ -1,12 +1,16 @@
 html {
+  background: #28f;
+  background: linear-gradient(to top, #cfdffc 0%, #ffffff 100%);
   font: 10px Arial, Helvetic, sans-serif;
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-html {
-  background: #28f;
-  background: linear-gradient(to top, #cfdffc 0%, #ffffff 100%);
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #container > div {
