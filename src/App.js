@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const Memory = () => {
-  const front = 'http://vignette3.wikia.nocookie.net/youtubepoop/images/4/4c/Pokeball.png/revision/latest';
+
+  const [deck, setDeck] = useState([]);
+  let [moves, setMoves] = useState(0);
+  const endMsg = 'You caught them all! 😀'
+
   const pokeObj = {
     bulbasaur: 'http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png',
     charmander: 'http://cdn.bulbagarden.net/upload/thumb/7/73/004Charmander.png/600px-004Charmander.png',
@@ -15,15 +19,16 @@ const Memory = () => {
   };
 
   const pokeArray = Object.keys(pokeObj);
+  useEffect(() => {
+    shuffle();
+  }, []);
 
-  const shuffle = () => {
+  function shuffle() {
     let pokeDeck = pokeArray.sort(() => {
       return Math.floor(Math.random() * 3 - 1);
     });
-
-    pokeDeck = pokeDeck.slice(0, 4).reduce((acc, poke, idx, arr) => {
-      // debugger;
-      console.log('++++++', acc, poke);
+    debugger;
+    pokeDeck = pokeDeck.slice(0, 4).reduce((acc, poke) => {
       acc.push(poke, poke);
       return acc;
     }, []);
@@ -36,41 +41,55 @@ const Memory = () => {
       pokeDeck[i] = pokeDeck[j];
       pokeDeck[j] = temp;
     }
-    return pokeDeck;
+    setDeck(pokeDeck);
   }
 
-  const [restart, setRestart] = useState(false);
-  const [time, restartTime] = useState(null);
-  const [deck, setDeck] = useState(shuffle());
-  const [moves, setMoves] = useState(0);
+  // const checkMatch = () => {
+  //
+  // }
 
-  useEffect(() => {
-
-  }, []);
-
-  const checkMatch = () => {
-
-  }
-
-  const clickHandler = () => {
+  const clickHandler = (e) => {
+    e.persist();
+    moves++;
+    setMoves(moves);
+    console.log('Click', moves, e)
     return '';
   }
 
+  const gameboard = () => {
+
+    return (
+      <div id="container">
+        <div id='gameBoard'>
+          {deck.map((card, i) => {
+            console.log('CARD====', card)
+            return (
+              <Card className={card}
+                handleClick={clickHandler}
+                key={i}
+                id={i} />
+            )
+          })}
+        </div>
+      </div>
+    )
+  };
+
   return (
-    <div id='gameBoard'>
-      {deck.map((card, i) => {
-        console.log('CARD====', card)
-        return (
-          <Card className={card}
-            handleClick={clickHandler}
-            id={i} />
-        )
-      })}
-    </div>
-  );
+    <>
+      <div className='endMsg'>{endMsg}</div>
+      <div className='score'>
+        <span>{moves}</span>
+        {}
+      </div>
+      {gameboard()}
+    </>
+  )
 }
 
 const Card = props => {
+  console.log('Card::', props)
+  debugger;
   let [togglevisibility, setTogglevisibility] = useState(props.didMatch);
   let [turned, setTurned] = useState('card');
   let [classes, setClasses] = useState('');
