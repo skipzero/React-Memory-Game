@@ -13,13 +13,13 @@ body {
   padding: 0;
 }
 
-#container > div {
+#root > div {
   margin: 1rem auto;
   position: relative;
   width: 90rem;
 }
 
-#container .endMsg {
+#root .endMsg {
   color: #1774F3;
   flex: 0 0 100%;
   font-size: 4rem;

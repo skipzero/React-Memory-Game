@@ -4,8 +4,11 @@ import './App.css';
 const Memory = () => {
 
   const [deck, setDeck] = useState([]);
-  let [moves, setMoves] = useState(0);
+  const [pairs, setPairs] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const [resetTime, setResetTime] = useState('');
   const endMsg = 'You caught them all! 😀'
+  let [moves, setMoves] = useState(0);
 
   const pokeObj = {
     bulbasaur: 'http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png',
@@ -27,7 +30,7 @@ const Memory = () => {
     let pokeDeck = pokeArray.sort(() => {
       return Math.floor(Math.random() * 3 - 1);
     });
-    debugger;
+
     pokeDeck = pokeDeck.slice(0, 4).reduce((acc, poke) => {
       acc.push(poke, poke);
       return acc;
@@ -48,49 +51,55 @@ const Memory = () => {
   //
   // }
 
-  const clickHandler = (e) => {
-    e.persist();
+  const clickHandler = (cid) => {
+    if (selected.includes(cid) || resetTime) {
+      return;
+    }
+    if (selected.length >= 1) {
+
+
+    }
     moves++;
     setMoves(moves);
-    console.log('Click', moves, e)
+    console.log('Click', moves)
     return '';
   }
 
   const gameboard = () => {
 
     return (
-      <div id="container">
-        <div id='gameBoard'>
-          {deck.map((card, i) => {
-            console.log('CARD====', card)
-            return (
-              <Card className={card}
-                handleClick={clickHandler}
-                key={i}
-                id={i} />
-            )
-          })}
-        </div>
+      <div id='gameBoard'>
+        {deck.map((card, i) => {
+          console.log('CARD====', card)
+          return (
+            <Card className={card}
+              handleClick={clickHandler.bind(null, i)}
+              didMatch={pairs.includes(i)}
+              key={i}
+              id={i} />
+          )
+        })}
       </div>
     )
   };
 
   return (
-    <>
+    <div>
       <div className='endMsg'>{endMsg}</div>
       <div className='score'>
         <span>{moves}</span>
         {}
       </div>
       {gameboard()}
-    </>
+    </div>
   )
 }
 
 const Card = props => {
   console.log('Card::', props)
-  debugger;
-  let [togglevisibility, setTogglevisibility] = useState(props.didMatch);
+  const { handleClick, id, didMatch } = props;
+
+  let [togglevisibility, setTogglevisibility] = useState(didMatch);
   let [turned, setTurned] = useState('card');
   let [classes, setClasses] = useState('');
 
@@ -99,7 +108,7 @@ const Card = props => {
   console.log('PROPSSSS', props)
 
   return (
-    <div className='flip' id={props.id} onClick={props.handleClick}>
+    <div className='flip' id={id} onClick={handleClick}>
       <div className={turned} style={style}>
         <div className={`face back`}></div>
         <div className={`face front ${classes}`}></div>
