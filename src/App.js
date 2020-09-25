@@ -8,8 +8,7 @@ const Memory = () => {
   let [endMsg, setEndMsg] = useState('');
   let [moves, setMoves] = useState(0);
 
-  let [selected, setSelected] = useState([]);
-
+  let selected = [];
 
   const pokeObj = {
     bulbasaur: 'http://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png',
@@ -30,7 +29,6 @@ const Memory = () => {
   function resetState() {
     setDeck([]);
     setPairs([]);
-    setSelected([]);
     setEndMsg('');
     setMoves(0);
   }
@@ -60,36 +58,45 @@ const Memory = () => {
     setDeck(pokeDeck);
   }
 
-  const checkMatch = (id) => {
-    let matchedSelected = selected.map(id => deck[id])
+  const checkMatch = (id, selected, timer) => {
+    let newPairs;
+    let matchedSelected = selected.map(id => deck[id]);
+    console.log('check match::::', pairs, id, selected)
     if (matchedSelected[0] === matchedSelected[1]) {
       const newPairs = pairs.concat(selected)
+      setPairs(newPairs);
     }
     moves++;
-    setSelected([])
     setMoves(moves);
-    console.log('check match::::', id, selected)
+    timer = null;
+
+    if (pairs.length === 8) {
+      setEndMsg('You got \'em all! Let\'s play again!');
+
+      setTimeout(() => {
+        resetState();
+      }, 15000)
+    }
   }
 
   const clickHandler = (id) => {
-    // id.preventDefault();
     console.log('clicker....', id)
     let reset;
     if (selected.includes(id) || reset) {
       return;
     }
+
     if (selected.length >= 1) {
       reset = setTimeout(() => {
-        checkMatch(id);
+        checkMatch(id, selected, reset);
       }, 1500);
     }
 
     selected.push(id);
-    setSelected(selected);
   }
 
-  const gameBoard = () => {
-
+  const gameBoard = (props) => {
+    console.log('gameboard', props, pairs)
     return (
       <div id='gameBoard'>
         {deck.map((card, i) => {
@@ -100,6 +107,7 @@ const Memory = () => {
               isSelected={selected.includes(i)}
               didMatch={pairs.includes(i)}
               key={i}
+              index={i}
               id={i} />
           )
         })}
@@ -121,15 +129,12 @@ const Memory = () => {
 }
 
 const Card = props => {
-  console.log('Card::', props)
+  let turned = 'false';
   const { handleClick, id, didMatch } = props;
-
-  let [togglevisibility, setTogglevisibility] = useState(didMatch);
-  let [turned, setTurned] = useState('card');
-  let [classes, setClasses] = useState('');
+  let classes = props.className;
+  turned = turned ? 'card ---' : 'card';
 
   let style = {}
-
   console.log('PROPSSSS', props)
 
   return (
